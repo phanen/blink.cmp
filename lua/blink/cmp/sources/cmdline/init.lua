@@ -111,6 +111,7 @@ function cmdline:get_completions(context, callback)
       -- Input mode (vim.fn.input())
       if vim.fn.getcmdtype() == '@' then
         local completion_args = vim.split(completion_type, ',', { plain = true })
+        ---@diagnostic disable-next-line: redefined-local
         local completion_type = completion_args[1]
         local completion_func = completion_args[2]
 
@@ -206,7 +207,7 @@ function cmdline:get_completions(context, callback)
           new_text = '$' .. completion
 
         -- for other completions, prepend the prefix
-        elseif vim.tbl_contains({ 'lua', '' }, completion_type) then
+        elseif vim.tbl_contains({ 'lua', 'shellcmd', '' }, completion_type) then
           new_text = current_arg_prefix .. completion
         end
 
